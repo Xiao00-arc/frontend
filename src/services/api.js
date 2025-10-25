@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'https://backend-iao4.onrender.com/api',
 });
 
 // This is an interceptor. It runs before every request.
