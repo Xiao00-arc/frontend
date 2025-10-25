@@ -13,7 +13,8 @@ const SignUpPage = () => {
     event.preventDefault();
     setError('');
 
-    const userData = { username, email, password, role: 'EMPLOYEE', employeeId: `EMP-${Date.now()}` };
+    // Only send fields expected by UserSignUpRequest DTO
+    const userData = { username, email, password };
 
     authService.register(userData)
       .then(() => {
