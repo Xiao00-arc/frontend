@@ -307,17 +307,16 @@ const ExpensesPage = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Validate file type
-      const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
-      if (!allowedTypes.includes(file.type)) {
-        setError('Please select a PNG, JPG, JPEG, or PDF file.');
+      // Validate file size (5MB limit)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('File size must be less than 5MB');
         return;
       }
       
-      // Validate file size (max 5MB)
-      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-      if (file.size > maxSize) {
-        setError('File size must be less than 5MB.');
+      // Validate file type
+      const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+      if (!allowedTypes.includes(file.type)) {
+        setError('Only PNG, JPG, JPEG, and PDF files are allowed');
         return;
       }
       
@@ -326,32 +325,42 @@ const ExpensesPage = () => {
     }
   };
 
-  const fetchReceiptsForExpense = async (expenseId) => {
-    try {
-      const response = await receiptService.getReceiptsByExpenseId(expenseId);
-      setReceipts(prev => ({ ...prev, [expenseId]: response.data }));
-    } catch (error) {
-      console.error('Failed to fetch receipts for expense:', expenseId, error);
-    }
-  };
-
   const handleViewReceipts = async (expenseId) => {
-    if (!receipts[expenseId]) {
-      await fetchReceiptsForExpense(expenseId);
+    try {
+      setViewingReceipts(expenseId);
+      
+      // Check if receipts are already cached
+      if (!receipts[expenseId]) {
+        console.log('Fetching receipts for expense:', expenseId);
+        const response = await receiptService.getReceiptsByExpenseId(expenseId);
+        console.log('Receipts fetched:', response.data);
+        
+        setReceipts(prev => ({
+          ...prev,
+          [expenseId]: response.data
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to fetch receipts:', error);
+      setError('Failed to load receipts. Please try again.');
     }
-    setViewingReceipts(expenseId);
   };
 
-  const downloadReceipt = async (fileName) => {
+  const downloadReceipt = async (filename) => {
     try {
-      const response = await receiptService.getReceiptFile(fileName);
-      const url = window.URL.createObjectURL(new Blob([response.data]));
+      console.log('Downloading receipt:', filename);
+      const response = await receiptService.getReceiptFile(filename);
+      
+      // Create a blob URL and trigger download
+      const blob = new Blob([response.data]);
+      const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', fileName);
+      link.download = filename;
       document.body.appendChild(link);
       link.click();
-      link.remove();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Failed to download receipt:', error);
       setError('Failed to download receipt. Please try again.');
@@ -496,7 +505,7 @@ const ExpensesPage = () => {
               setSelectedFile(null);
               setIsModalOpen(true);
             }}
-            className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+            className="flex items-center bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
           >
             <PlusIcon className="h-5 w-5 mr-2" />
             New Expense
@@ -660,7 +669,7 @@ const ExpensesPage = () => {
                   onChange={handleInputChange}
                   placeholder="e.g., Client lunch, Office supplies"
                   required
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
                 />
               </div>
 
@@ -677,7 +686,7 @@ const ExpensesPage = () => {
                   step="0.01"
                   min="0"
                   required
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
                 />
               </div>
 
@@ -691,7 +700,7 @@ const ExpensesPage = () => {
                   value={newExpense.expenseDate}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
                 />
               </div>
 
@@ -704,7 +713,7 @@ const ExpensesPage = () => {
                   value={newExpense.categoryId}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
                 >
                   <option value="">Select a category</option>
                   {categories.length > 0 ? (
@@ -759,7 +768,7 @@ const ExpensesPage = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
                 >
                   Create
                 </button>
@@ -805,7 +814,7 @@ const ExpensesPage = () => {
                       </div>
                       <button
                         onClick={() => downloadReceipt(receipt.fileName)}
-                        className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+                        className="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm"
                       >
                         Download
                       </button>

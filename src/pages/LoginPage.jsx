@@ -36,24 +36,24 @@ const LoginPage = () => {
           {/* ... Inputs are the same as before ... */}
           <div>
             <input id="username" name="username" type="text" required
-              className="w-full px-4 py-2 text-gray-700 bg-gray-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-gray-700 bg-gray-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
           <div>
             <input id="password" name="password" type="password" required
-              className="w-full px-4 py-2 text-gray-700 bg-gray-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-gray-700 bg-gray-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div>
             <button type="submit"
-              className="w-full px-4 py-2 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700">
+              className="w-full px-4 py-2 font-semibold text-white bg-green-600 rounded-md hover:bg-green-700">
               Sign In
             </button>
           </div>
         </form>
         <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
           Don't have an account?{' '}
-          <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+          <Link to="/signup" className="font-medium text-green-600 hover:text-green-500">
             Sign Up
           </Link>
         </p>

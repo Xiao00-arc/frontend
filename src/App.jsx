@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import DashboardPage from './pages/DashboardPage';
 import DashboardLayout from './layouts/DashboardLayout';
-import ExpensesPage from './pages/ExpensesPage'; // <-- 1. IMPORT THE NEW PAGE
+import ExpensesPage from './pages/ExpensesPage';
 import './index.css';
 
 // ... (Your ProtectedRoute and PublicRoute components remain the same) ...
@@ -23,16 +24,18 @@ const PublicRoute = ({ children }) => {
 function AppRoutes() {
   return (
     <Routes>
+      {/* Public Routes */}
+      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
       <Route path="/signup" element={<PublicRoute><SignUpPage /></PublicRoute>} />
 
+      {/* Protected Routes */}
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-
-      {/* --- 2. THIS ROUTE IS NOW UPDATED --- */}
       <Route path="/expenses" element={<ProtectedRoute><ExpensesPage /></ProtectedRoute>} /> 
-
       <Route path="/reports" element={<ProtectedRoute><div>Reports Page Content</div></ProtectedRoute>} />
-      <Route path="*" element={<Navigate to="/dashboard" />} />
+      
+      {/* Catch all - redirect to landing page for unauthenticated, dashboard for authenticated */}
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }
