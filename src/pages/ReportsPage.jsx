@@ -152,42 +152,6 @@ const ReportsPage = () => {
         </div>
       </div>
 
-      {/* How It Works Section */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-8">
-          How It Works
-        </h2>
-        <div className="flex flex-col md:flex-row justify-around items-center gap-8">
-          <div className="flex flex-col items-center text-center max-w-xs">
-            <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
-              <FileTextIcon className="text-blue-600 dark:text-blue-400" size={28} />
-            </div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-              Create or modify
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Set expense easily
-            </p>
-          </div>
-          
-          <div className="hidden md:block text-gray-300 dark:text-gray-600">
-            ············→
-          </div>
-
-          <div className="flex flex-col items-center text-center max-w-xs">
-            <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
-              <CheckCircleIcon className="text-green-600 dark:text-green-400" size={28} />
-            </div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-              View the status
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              View report updates within report
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* Statistics Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
