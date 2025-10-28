@@ -7,6 +7,7 @@ import SignUpPage from './pages/SignUpPage';
 import DashboardPage from './pages/DashboardPage';
 import DashboardLayout from './layouts/DashboardLayout';
 import ExpensesPage from './pages/ExpensesPage';
+import ReportsPage from './pages/ReportsPage';
 import './index.css';
 
 // ... (Your ProtectedRoute and PublicRoute components remain the same) ...
@@ -32,7 +33,7 @@ function AppRoutes() {
       {/* Protected Routes */}
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/expenses" element={<ProtectedRoute><ExpensesPage /></ProtectedRoute>} /> 
-      <Route path="/reports" element={<ProtectedRoute><div>Reports Page Content</div></ProtectedRoute>} />
+      <Route path="/reports" element={<ProtectedRoute><ReportsPage /></ProtectedRoute>} />
       
       {/* Catch all - redirect to landing page for unauthenticated, dashboard for authenticated */}
       <Route path="*" element={<Navigate to="/" />} />
