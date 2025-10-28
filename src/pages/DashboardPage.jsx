@@ -73,25 +73,25 @@ const DashboardPage = () => {
   const QuickActionCard = ({ icon: Icon, title, description, onClick, color }) => (
     <div 
       onClick={onClick}
-      className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow"
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6 cursor-pointer hover:shadow-lg transition-shadow"
     >
-      <div className={`w-12 h-12 rounded-full ${color} flex items-center justify-center mb-4`}>
-        <Icon className="text-white" size={24} />
+      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full ${color} flex items-center justify-center mb-3 sm:mb-4`}>
+        <Icon className="text-white" size={20} />
       </div>
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
-      <p className="text-sm text-gray-600 dark:text-gray-400">{description}</p>
+      <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
+      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{description}</p>
     </div>
   );
 
   const StatCard = ({ icon: Icon, label, value, color }) => (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{label}</p>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">{label}</p>
+          <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
         </div>
-        <div className={`w-12 h-12 rounded-full ${color} flex items-center justify-center`}>
-          <Icon className="text-white" size={24} />
+        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full ${color} flex items-center justify-center`}>
+          <Icon className="text-white" size={20} />
         </div>
       </div>
     </div>
@@ -102,13 +102,13 @@ const DashboardPage = () => {
                            user?.role?.includes('FINANCE_MANAGER');
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg shadow-lg p-8 text-white">
-        <h1 className="text-3xl font-bold mb-2">
+      <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg shadow-lg p-6 sm:p-8 text-white">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2">
           Hello, {user ? user.username : 'User'}
         </h1>
-        <p className="text-green-100">
+        <p className="text-sm sm:text-base text-green-100">
           {isAdminOrManager 
             ? 'Welcome to your expense management dashboard' 
             : 'Welcome back to your expense dashboard'}
@@ -117,40 +117,40 @@ const DashboardPage = () => {
 
       {/* Pending Tasks */}
       <div>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Pending Tasks</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-6">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Pending Tasks</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-4 sm:p-6">
             <div className="flex items-center justify-between mb-2">
-              <ClockIcon className="text-orange-600 dark:text-orange-400" size={24} />
-              <span className="text-3xl font-bold text-orange-600 dark:text-orange-400">
+              <ClockIcon className="text-orange-600 dark:text-orange-400" size={20} />
+              <span className="text-2xl sm:text-3xl font-bold text-orange-600 dark:text-orange-400">
                 {stats.pendingApprovals}
               </span>
             </div>
-            <p className="text-sm font-medium text-orange-900 dark:text-orange-300">
+            <p className="text-xs sm:text-sm font-medium text-orange-900 dark:text-orange-300">
               {isAdminOrManager ? 'Pending Approval' : 'Pending Expenses'}
             </p>
           </div>
 
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 sm:p-6">
             <div className="flex items-center justify-between mb-2">
-              <FileTextIcon className="text-blue-600 dark:text-blue-400" size={24} />
-              <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+              <FileTextIcon className="text-blue-600 dark:text-blue-400" size={20} />
+              <span className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400">
                 {stats.unreportedExpenses}
               </span>
             </div>
-            <p className="text-sm font-medium text-blue-900 dark:text-blue-300">
+            <p className="text-xs sm:text-sm font-medium text-blue-900 dark:text-blue-300">
               Unreported Expenses
             </p>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 sm:p-6">
             <div className="flex items-center justify-between mb-2">
-              <FileTextIcon className="text-gray-600 dark:text-gray-400" size={24} />
-              <span className="text-3xl font-bold text-gray-600 dark:text-gray-400">
+              <FileTextIcon className="text-gray-600 dark:text-gray-400" size={20} />
+              <span className="text-2xl sm:text-3xl font-bold text-gray-600 dark:text-gray-400">
                 Rs 0.00
               </span>
             </div>
-            <p className="text-sm font-medium text-gray-900 dark:text-gray-300">
+            <p className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300">
               Unreported Advances
             </p>
           </div>
@@ -159,8 +159,8 @@ const DashboardPage = () => {
 
       {/* Quick Actions */}
       <div>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Quick Add</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Quick Add</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <QuickActionCard
             icon={PlusIcon}
             title="Create Expense"
@@ -187,8 +187,8 @@ const DashboardPage = () => {
 
       {/* Statistics */}
       <div>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Overview</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Overview</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <StatCard
             icon={FileTextIcon}
             label="Total Expenses"
@@ -218,24 +218,24 @@ const DashboardPage = () => {
 
       {/* Reports Summary */}
       {!loading && (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Reports Summary</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">Reports Summary</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
             <div>
-              <p className="text-2xl font-bold text-blue-600">0</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Most Recent Reports</p>
+              <p className="text-xl sm:text-2xl font-bold text-blue-600">0</p>
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Most Recent Reports</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-600">0</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Unsubmitted Reports</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-600">0</p>
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Unsubmitted Reports</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-orange-600">0</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Awaiting Approval</p>
+              <p className="text-xl sm:text-2xl font-bold text-orange-600">0</p>
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Awaiting Approval</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-green-600">0 (Rs 0.00)</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Awaiting Reimbursement</p>
+              <p className="text-xl sm:text-2xl font-bold text-green-600">0 (Rs 0.00)</p>
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Awaiting Reimbursement</p>
             </div>
           </div>
         </div>
